@@ -1,0 +1,23 @@
+{
+    "name": "urixen/extrex",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        },
+        "files": [
+            "App/Helper/ExtraxEnqueue.php",
+            "App/Helper/Functions.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Samir",
+            "email": "129506685+SAMIR717GH@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "^3.5",
+        "symfony/cache": "^7.3",
+        "nikic/fast-route": "^1.3"
+    }
+}

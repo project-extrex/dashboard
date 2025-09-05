@@ -1,0 +1,19 @@
+{
+    "name": "extrax copy",
+    "description": "The default extrax theme",
+    "authors": [{
+        "name": "Nehxurai",
+        "url": "https://example.com"
+    }],
+    "slug": "extrax-copy",
+    "screenshot": "./screenshot.png",
+    "homepage": "",
+    "version": "0.0.1",
+    "prefix": "ext",
+    "page": {
+        "login": "./auth/login.php",
+        "register": "./auth/register.php",
+        "index": "./index.php",
+        "dashboard": "./dashboard.php"
+    }
+}

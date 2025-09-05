@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * -----------------
+ * Admin Routes
+ * -----------------
+ */
+
+ use App\Core\Render;
+use App\Core\RenderAdmin;
+use App\Core\Router;
+use App\Database\Entities\Settings;
+use App\Database\Entities\User;
+use App\Database\Entities\Resources;
+
+global $entityManager;
+
+$settingsRepo = $entityManager->getRepository(Settings::class);
+
+$renderer = new Render($settingsRepo, $entityManager);
+
+
+$router->get('/admin', function () use ($renderer, $entityManager) {
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: /login');
+        exit;
+    }
+    $user = $entityManager->find(User::class, $_SESSION['user_id']);
+    if (!$user->isAdmin()) {
+        header('Location: /dashboard?error=unauthorized');
+        exit;
+    }
+
+    $renderer->renderAdmin('index', ['user' => $user]);
+});
+
+$router->get('/admin/theme/', function () use ($renderer, $entityManager) {
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: /login');
+        exit;
+    }
+    $user = $entityManager->find(User::class, $_SESSION['user_id']);
+    if (!$user->isAdmin()) {
+        header('Location: /dashboard?error=unauthorized');
+        exit;
+    }
+
+    $renderer->renderAdmin('themes', []);
+});
+
+$router->post('/admin/theme/', function () use ($renderer, $entityManager) {
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: /login');
+        exit;
+    }
+    $user = $entityManager->find(User::class, $_SESSION['user_id']);
+    if (!$user->isAdmin()) {
+        header('Location: /dashboard?error=unauthorized');
+        exit;
+    }
+
+    $action = htmlspecialchars($_POST['action'] ?? '');
+    $themeSlug = htmlspecialchars($_POST['slug'] ?? '');
+    $themePath = htmlspecialchars($_POST['path'] ?? '');
+
+    if ($action === 'activate') {
+        $settingsRepo = $entityManager->getRepository(Settings::class);
+        $settingsRepo->setSetting('theme', $themeSlug);
+    }
+
+    $renderer->renderAdmin('themes', [
+        'msg' => "Action '{$action}' performed successfully for theme '{$themeSlug}'"
+    ]);
+});
+
+$router->get("/admin/users/", function () use ($renderer, $entityManager) {
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: /login');
+        exit;
+    }
+    $user = $entityManager->find(User::class, $_SESSION['user_id']);
+    if (!$user->isAdmin()) {
+        header('Location: /dashboard?error=unauthorized');
+        exit;
+    }
+    $usersRepo = $entityManager->getRepository(User::class);
+    $users = $usersRepo->findAll();
+    $renderer->renderAdmin("users", ['users' => $users]);
+});

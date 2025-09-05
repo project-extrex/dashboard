@@ -1,0 +1,41 @@
+{
+    "name": "Social Login",
+    "version": "1.0.0",
+    "description": "Adds social login capabilities to your dashboard",
+    "author": "Project Extrex",
+    "main": "SocialLoginPlugin.php",
+    "settings": {
+        "facebook_app_id": {
+            "type": "text",
+            "label": "Facebook App ID",
+            "description": "Enter your Facebook App ID"
+        },
+        "facebook_app_secret": {
+            "type": "password",
+            "label": "Facebook App Secret",
+            "description": "Enter your Facebook App Secret"
+        },
+        "google_client_id": {
+            "type": "text",
+            "label": "Google Client ID",
+            "description": "Enter your Google Client ID"
+        },
+        "google_client_secret": {
+            "type": "password",
+            "label": "Google Client Secret",
+            "description": "Enter your Google Client Secret"
+        },
+        "enabled_providers": {
+            "type": "select",
+            "label": "Enabled Providers",
+            "description": "Select which social login providers to enable",
+            "multiple": true,
+            "options": {
+                "facebook": "Facebook",
+                "google": "Google",
+                "github": "GitHub"
+            },
+            "default": ["facebook", "google"]
+        }
+    }
+}
