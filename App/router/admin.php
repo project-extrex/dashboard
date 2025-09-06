@@ -6,7 +6,7 @@
  * -----------------
  */
 
- use App\Core\Render;
+use App\Core\Render;
 use App\Core\RenderAdmin;
 use App\Core\Router;
 use App\Database\Entities\Settings;
