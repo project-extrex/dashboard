@@ -14,6 +14,7 @@
         "login": "./auth/login.php",
         "register": "./auth/register.php",
         "index": "./index.php",
-        "dashboard": "./dashboard.php"
+        "dashboard": "./dashboard.php",
+        "profile": "./profile.php"
     }
 }

@@ -55,6 +55,8 @@ class Router
         }
         $uri = rawurldecode($uri);
 
+        //echo $uri;
+
         $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
         switch ($routeInfo[0]) {
