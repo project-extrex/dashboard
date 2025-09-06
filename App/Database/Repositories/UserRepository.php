@@ -17,7 +17,4 @@ class UserRepository extends BaseRepository {
     public function findAdmins(): array {
         return $this->repository->findBy(['admin' => true]);
     }
-        $em->remove($user);
-        $em->flush();
-    }
 }
