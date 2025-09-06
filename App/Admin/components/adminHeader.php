@@ -13,9 +13,9 @@
         }
 
         ?>
-        <a href="#">About Extrax</a>
-        <a href="#">Documentation</a>
-        <a href="#">Support</a>
+        <a href="https://github.com/project-extrex">About Extrax</a>
+        <a href="https://project-extrex.github.io/docs">Documentation</a>
+        <a href="/">Support</a>
       </div>
       </div>
     <?php if(!isset($adminView)): ?>
@@ -28,7 +28,7 @@
     <div class="dropdown">
       <a href="#">Howdy, <?= $user->getName() ?> ▾</a>
       <div class="dropdown-content" style="right:0; left:auto;">
-        <a href="#">Profile</a>
+        <a href="/profile">Profile</a>
         <a href="/logout">Log Out</a>
       </div>
     </div>
