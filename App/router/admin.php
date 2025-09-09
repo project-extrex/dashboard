@@ -73,17 +73,4 @@ $router->post('/admin/theme/', function () use ($renderer, $entityManager) {
     ]);
 });
 
-$router->get("/admin/users/", function () use ($renderer, $entityManager) {
-    if (!isset($_SESSION['user_id'])) {
-        header('Location: /login');
-        exit;
-    }
-    $user = $entityManager->find(User::class, $_SESSION['user_id']);
-    if (!$user->isAdmin()) {
-        header('Location: /dashboard?error=unauthorized');
-        exit;
-    }
-    $usersRepo = $entityManager->getRepository(User::class);
-    $users = $usersRepo->findAll();
-    $renderer->renderAdmin("users", ['users' => $users]);
-});
+include "admin/User.php";

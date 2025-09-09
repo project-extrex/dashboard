@@ -55,7 +55,7 @@ use App\Icon\Icon;
 <div id="editPopup" class="popup-overlay">
     <div class="popup-content">
         <h3>Edit User</h3>
-        <form id="editForm" method="post" action="">
+        <form id="editForm" method="post" action="/admin/users/<?= $id ?>">
             <input type="hidden" name="user_id" id="editUserId">
 
             <label>Name:</label>
@@ -75,8 +75,8 @@ use App\Icon\Icon;
 
             <label>Admin:</label>
             <select name="admin" id="editAdmin">
-                <option value="0">No</option>
-                <option value="1">Yes</option>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
             </select>
 
             <h4>Resources</h4>
@@ -265,6 +265,8 @@ document.querySelectorAll('.edit-btn').forEach(btn => {
         document.getElementById('editAllocations').value = this.dataset.allocations;
 
         document.getElementById('editPopup').style.display = 'flex';
+
+        document.getElementById("editForm").action = "/admin/users/" + this.dataset.id;
     });
 });
 
