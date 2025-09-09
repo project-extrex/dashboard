@@ -36,7 +36,6 @@ $router->post('/login', function () use ($renderer, $entityManager) {
     $userRepo = $entityManager->getRepository(User::class);
     $user = $userRepo->findOneBy(['email' => $email]);
     
-    $user->setPassword($passwordInput);
     
     if (!$user) {
         $errorMsg = 'Invalid email or password';

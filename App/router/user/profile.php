@@ -30,6 +30,20 @@ $router->post("/profile", function () use ($renderer, $entityManager) {
         exit;
     }
 
+    $error = "";
+
     $user = $entityManager->find(User::class, $_SESSION['user_id']);
-    $renderer->render('profile', ['user_data' => $user]);
+
+    if($user->verifyPassword($_POST["password"])) 
+    {
+         $user->setName($_POST["name"]??$user->getName());
+         $user->setUsername($_POST["username"]??$user->getUsername());
+         $user->setFirstname($_POST["firstname"]??$user->getFirstname());
+         $user->setLastname($_POST["lastname"]??$user->getLastname());
+         $user->setEmail($_POST["email"]??$user->getEmail());
+    } else {
+        $error = "Invalid password";
+    }
+    
+    $renderer->render('profile', ['user_data' => $user, 'error' => $error]);
 });
