@@ -74,3 +74,4 @@ $router->post('/admin/theme/', function () use ($renderer, $entityManager) {
 });
 
 include "admin/User.php";
+include "admin/Setting.php";

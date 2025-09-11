@@ -2,6 +2,8 @@
 namespace App\Database\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'users')]
@@ -19,6 +21,7 @@ class User
         $this->resources->setAllocations((int) ($settingsRepo->getSetting("default_allocations") ?? 0));
         $this->resources->setBackups((int) ($settingsRepo->getSetting("default_backups") ?? 0));
         $this->resources->setSlots((int) ($settingsRepo->getSetting("default_slot") ?? 0));
+        $this->servers = new ArrayCollection();
     }
 
     #[ORM\Id]
@@ -33,6 +36,10 @@ class User
     )]
     #[ORM\JoinColumn(name: 'resources_id', referencedColumnName: 'id', nullable: false, unique: true)]
     private Resources $resources;
+
+    // --- One user has many servers ---
+    #[ORM\OneToMany(mappedBy: "user", targetEntity: Servers::class, cascade: ["persist", "remove"])]
+    private Collection $servers;
 
     #[ORM\Column(type: 'string', length: 100)]
     private string $name;
@@ -57,6 +64,30 @@ class User
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $admin = false;
+
+    public function getServers(): Collection
+    {
+        return $this->servers;
+    }
+
+    public function addServer(Servers $server): self
+    {
+        if (!$this->servers->contains($server)) {
+            $this->servers[] = $server;
+            $server->setUser($this);
+        }
+        return $this;
+    }
+
+    public function removeServer(Servers $server): self
+    {
+        if ($this->servers->removeElement($server)) {
+            if ($server->getUser() === $this) {
+                $server->setUser(null);
+            }
+        }
+        return $this;
+    }
 
     public function getId(): ?int
     {
