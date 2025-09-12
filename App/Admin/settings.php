@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="/admin/assets/settings/style.css">
 
 <?php
+echo "<link href='/admin/assets/settings/style.css'/>";
+
 global $entityManager;
 
 // Render the settings table
@@ -70,4 +72,34 @@ renderSettingsTable($settings);
 
 echo "<h2>Add or Update Setting</h2>";
 renderForm();
+include("ContentBrowser.php");
 ?>
+
+<form action="/admin/upload" enctype="multipart/form-data" method="POST">
+    <input type="file" name="uploaded_file" id="">
+    <input type="submit" value="Upload File" name="upload">
+</form>
+
+<?php
+
+//renderContentBrowserAssets("standalone");
+//renderContentBrowser(__DIR__ . "/../../public/content", "/content/", false);
+
+
+//renderContentBrowserAssets("selector");
+//contentBrowser(__DIR__ . "/../../public/content", "/content/", true);
+
+$standalone = true;
+
+renderContentSelector(__DIR__ . '/../../public/content', '/content', true);
+?>
+
+<script>
+function receiveSelectedFile(url) {
+    console.log("User selected:", url);
+    document.getElementById("chosen-file").value = url;
+}
+</script>
+
+<input type="text" id="chosen-file" placeholder="No file chosen">
+<button onclick="openContentModal(false)">Select </button>

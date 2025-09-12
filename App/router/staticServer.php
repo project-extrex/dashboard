@@ -49,3 +49,25 @@ $router->get('/admin/assets/{file:.+}', function($vars) {
     readfile($target);
     exit;
 });
+
+$router->get('/content/{file:.+}', function($vars) {
+    $file = $vars['file'];
+
+    $baseDir = realpath(__DIR__ . "/../../public/content"); 
+    $target  = realpath($baseDir . '/' . $file);
+
+    // Prevent directory traversal
+    if ($target === false || strpos($target, $baseDir) !== 0 || !is_file($target)) {
+        http_response_code(404);
+        return 'File not found';
+    }
+
+    // Correct MIME type
+    $mime = mime_content_type($target);
+    header('Content-Type: ' . $mime);
+    header('Content-Length: ' . filesize($target));
+
+    // Stream file and exit
+    readfile($target);
+    exit;
+});

@@ -78,13 +78,27 @@ class Render
         $adminPath = __DIR__ . '/../Admin/' . $view . '.php';
 
         if (file_exists($adminPath)) {
+            echo '<!DOCTYPE html>
+                 <html lang="en">
+                 <head>
+                 <meta charset="UTF-8">
+                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                 <title>Admin - ' . htmlspecialchars($view) . '</title>
+                ';
+          echo "<link href=\"/admin/assets/{$view}/style.css\" />";
+          echo '
+              </head>
+              <body>';
+
             extract($data);
             $adminView = true;
             $user = $this->entityManager->find(User::class, $_SESSION['user_id']);
             include __DIR__ . '/../Admin/components/adminHeader.php';
             include $adminPath;
+
+            echo '</body></html>';
         } else {
-            echo 'Admin view not found: ' . htmlspecialchars($adminView);
+            echo 'Admin view not found: ' . htmlspecialchars($view);
         }
     }
 }
