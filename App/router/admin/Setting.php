@@ -44,3 +44,5 @@ function RenderSetting() {
 
 $router->get("/admin/setting", fn() => RenderSetting());
 $router->post("/admin/setting", fn() => RenderSetting());
+
+require_once __DIR__ . "/Uploader.php";
