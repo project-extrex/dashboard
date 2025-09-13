@@ -1,104 +1,101 @@
 <?php
-
 namespace App\Core;
 
 use App\Database\Entities\Settings;
 use App\Database\Entities\User;
-
-require_once __DIR__ . '/../Helper/ExtraxEnqueue.php';
+use Illuminate\Container\Container;
+use Illuminate\Events\Dispatcher;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\View\Compilers\BladeCompiler;
+use Illuminate\View\Engines\CompilerEngine;
+use Illuminate\View\Engines\EngineResolver;
+use Illuminate\View\Factory;
+use Illuminate\View\FileViewFinder;
 
 class Render
 {
     private $settingsRepo;
     private $entityManager;
+    private Factory $blade;
+    private string $theme;
+    private string $themePath;
+    private string $cachePath;
 
-    public function __construct($settingsRepo, $entityManager)
+    public function __construct($settingsRepo, $entityManager, string $cachePath = __DIR__ . '/../../cache')
     {
         $this->settingsRepo = $settingsRepo;
         $this->entityManager = $entityManager;
+        $this->cachePath = $cachePath;
+
+        $this->theme = $this->settingsRepo->getSetting('theme') ?? 'extrax';
+        $this->themePath = __DIR__ . "/../../theme/{$this->theme}";
+
+        // Ensure cache folder exists
+        if (!is_dir($this->cachePath))
+            mkdir($this->cachePath, 0777, true);
+
+        // Setup Blade
+        $container = new Container;
+        $filesystem = new Filesystem;
+        $events = new Dispatcher($container);
+
+        $finder = new FileViewFinder($filesystem, [$this->themePath]);
+
+        $resolver = new EngineResolver();
+        $bladeCompiler = new BladeCompiler($filesystem, $this->cachePath);
+        $resolver->register('blade', fn() => new CompilerEngine($bladeCompiler));
+
+        // Optional: PHP fallback engine
+        $resolver->register('php', fn() => new CompilerEngine($bladeCompiler));
+
+        $this->blade = new Factory($resolver, $finder, $events);
     }
 
     /**
-     * Render a frontend/theme view
+     * Render frontend Blade view
      */
-    public function render(string $view, array $data = []): void
+    public function view(string $file, array $data = []): void
     {
-        $theme = $this->settingsRepo->getSetting('theme') ?? 'extrax';
-        $themeJson = file_get_contents(__DIR__ . '/../../theme/' . $theme . '/theme.json');
-        $metadataTheme = json_decode($themeJson);
-
-        $siteName = $this->settingsRepo->getSetting('site_name') ?? 'Extrax';
-
-        // include admin sticky header if the user is admin
-        // include_once __DIR__ . '/../../connection.php';
+        $data['siteName'] = $this->settingsRepo->getSetting('site_name') ?? 'Extrax';
+        $data['theme'] = $this->theme;
 
         if (isset($_SESSION['user_id'])) {
-            $user = $this->entityManager->find(User::class, $_SESSION['user_id']);
-            if ($user && $user->isAdmin()) {
-                include __DIR__ . '/../Admin/components/adminHeader.php';
-            }
+            $data['user'] = $this->entityManager->find(User::class, $_SESSION['user_id']);
         }
 
-        // Include theme header and functions
+        $themeData = json_decode(file_get_contents($this->themePath . '/theme.json'), true);
 
-        $headerPath = __DIR__ . "/../../theme/{$theme}/header.php";
-        if (is_file($headerPath))
-            include $headerPath;
+        $pagePath = $themeData['page'][$file] ?? null;
 
-        $functionPath = __DIR__ . "/../../theme/{$theme}/function.php";
-        if (file_exists($functionPath))
-            include $functionPath;
+        if ($pagePath) {
+            // Strip leading './' and convert slashes to dot notation for Blade
+            $bladeView = str_replace('/', '.', ltrim($pagePath, './'));
 
-        extrax_run_headers($siteName, $view);
-
-        // Load the requested page
-        $pageFile = $metadataTheme->page->$view ?? null;
-        $themePath = __DIR__ . "/../../theme/{$theme}/" . $pageFile;
-
-        if ($pageFile && file_exists($themePath)) {
-            extract($data);
-            include $themePath;
-        } else {
-            echo 'Theme view not found: ' . htmlspecialchars($view);
+            echo $this->blade->make($bladeView, $data)->render();
+            return;
         }
 
-        // Include footer
-        $footerPath = __DIR__ . "/../../theme/{$theme}/footer.php";
-        if (file_exists($footerPath))
-            include $footerPath;
-
-        extrax_run_footer();
+        echo 'Theme view not found: ' . htmlspecialchars($file);
     }
 
     /**
-     * Render an admin view
+     * Render admin page (still PHP include)
      */
-    public function renderAdmin(string $view, array $data = []): void
+    public function admin(string $file, array $data = []): void
     {
-        $adminPath = __DIR__ . '/../Admin/' . $view . '.php';
+        $adminPath = __DIR__ . '/../Admin/' . $file . '.php';
 
         if (file_exists($adminPath)) {
-            echo '<!DOCTYPE html>
-                 <html lang="en">
-                 <head>
-                 <meta charset="UTF-8">
-                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                 <title>Admin - ' . htmlspecialchars($view) . '</title>
-                ';
-          echo "<link href=\"/admin/assets/{$view}/style.css\" />";
-          echo '
-              </head>
-              <body>';
+            $data['adminView'] = true;
+            $data['user'] = $_SESSION['user_id']
+                ? $this->entityManager->find(User::class, $_SESSION['user_id'])
+                : null;
 
-            extract($data);
-            $adminView = true;
-            $user = $this->entityManager->find(User::class, $_SESSION['user_id']);
             include __DIR__ . '/../Admin/components/adminHeader.php';
+            extract($data, EXTR_SKIP);
             include $adminPath;
-
-            echo '</body></html>';
         } else {
-            echo 'Admin view not found: ' . htmlspecialchars($view);
+            echo 'Admin view not found: ' . htmlspecialchars($file);
         }
     }
 }

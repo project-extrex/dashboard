@@ -23,7 +23,7 @@ $router->get('/dashboard', function () use ($renderer, $entityManager) {
     }
 
     $user = $entityManager->find(User::class, $_SESSION['user_id']);
-    $renderer->render('dashboard', ['user_data' => $user]);
+    $renderer->view('dashboard', ['user_data' => $user]);
 });
 
 require_once __DIR__ . "/user/profile.php";

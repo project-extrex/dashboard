@@ -1,0 +1,18 @@
+{
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.13",
+    "bun": "^1.2.21",
+    "tailwindcss": "^4.1.13"
+  },
+  "name": "extrax",
+  "version": "1.0.0",
+  "main": "public/index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css:watch": "bunx --bun  @tailwindcss/cli -i ./theme/extrax/assets/css/global.css -o ./theme/extrax/assets/css/output.css --watch",
+    "css:build": "bunx --bun @tailwindcss/cli -i ./theme/extrax/assets/css/global.css -o ./theme/extrax/assets/css/output.css"
+  },
+  "author": "Nehxurai",
+  "license": "GNU 2.0",
+  "description": ""
+}

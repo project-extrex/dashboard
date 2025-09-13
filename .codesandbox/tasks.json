@@ -1,0 +1,13 @@
+{
+  // These tasks will run in order when initializing your CodeSandbox project.
+  "setupTasks": [],
+
+  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
+  "tasks": {
+    "Dev Server": {
+      "name": "Start development server",
+      "command": "php -S 0.0.0.0:8080 public/index.php",
+      "runAtStart": false
+    }
+  }
+}

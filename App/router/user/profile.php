@@ -20,7 +20,7 @@ $router->get("/profile", function () use ($renderer, $entityManager) {
     }
 
     $user = $entityManager->find(User::class, $_SESSION['user_id']);
-    $renderer->render('profile', ['user_data' => $user]);
+    $renderer->view('profile', ['user_data' => $user]);
 });
 
 
@@ -45,5 +45,5 @@ $router->post("/profile", function () use ($renderer, $entityManager) {
         $error = "Invalid password";
     }
     
-    $renderer->render('profile', ['user_data' => $user, 'error' => $error]);
+    $renderer->view('profile', ['user_data' => $user, 'error' => $error]);
 });

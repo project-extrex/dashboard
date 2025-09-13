@@ -11,10 +11,10 @@
     "version": "0.0.1",
     "prefix": "ext",
     "page": {
-        "login": "./auth/login.php",
-        "register": "./auth/register.php",
-        "index": "./index.php",
-        "dashboard": "./dashboard.php",
-        "profile": "./profile.php"
+        "login": "./auth/login",
+        "register": "./auth/register",
+        "index": "./index",
+        "dashboard": "./dashboard",
+        "profile": "./profile"
     }
 }
