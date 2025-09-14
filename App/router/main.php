@@ -34,7 +34,7 @@ require_once __DIR__ . "/auth.php";
 require_once __DIR__ . "/front.php";
 require_once __DIR__ . "/admin.php";
 require_once __DIR__ . '/staticServer.php';
-
+require_once __DIR__ . "/../../theme/{$settingsRepo->getSetting('theme')}/functions.php";
 
 // --- Dispatch ---
 if (php_sapi_name() !== 'cli') {

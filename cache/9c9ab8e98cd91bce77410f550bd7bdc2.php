@@ -1,11 +1,10 @@
-@extends('layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4 text-center">
     
     <!-- Hero Section -->
     <h1 class="text-5xl font-extrabold text-gray-800 mb-4">
-        Welcome to {{ $siteName }}
+        Welcome to <?php echo e($siteName); ?>
+
     </h1>
     <p class="text-lg text-gray-600 mb-8">
         Start your hosting journey with us
@@ -35,4 +34,5 @@
     </div>
 
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /project/workspace/theme/extrax/index.blade.php ENDPATH**/ ?>
