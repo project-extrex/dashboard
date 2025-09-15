@@ -1,18 +1,17 @@
-@extends('layout')
+<?php $__env->startSection('title', 'Profile'); ?>
 
-@section('title', 'Profile')
+<?php $__env->startSection("content"); ?>
 
-@section("content")
 
-{{-- Error message --}}
-@if(!empty($error))
+<?php if(!empty($error)): ?>
     <div class="bg-red-600 text-white p-3 mb-4 rounded-lg shadow-md flex items-center gap-2">
         <i class="fas fa-exclamation-circle"></i>
-        {{ $error }}
-    </div>
-@endif
+        <?php echo e($error); ?>
 
-{{-- Profile form --}}
+    </div>
+<?php endif; ?>
+
+
 <form method="POST" class="bg-white p-6 rounded-xl shadow-md max-w-lg mx-auto space-y-4">
     <h2 class="text-2xl font-bold text-gray-800 text-center mb-4 flex items-center justify-center gap-2">
         <i class="fas fa-user-circle text-blue-600"></i> Your Profile
@@ -21,35 +20,35 @@
     <div>
         <label for="name" class="block text-gray-700 font-medium mb-1">Name <span class="text-red-500">*</span></label>
         <input type="text" id="name" name="name" 
-               value="{{ old('name', $user_data->getName()) }}"
+               value="<?php echo e(old('name', $user_data->getName())); ?>"
                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
     </div>
 
     <div>
         <label for="username" class="block text-gray-700 font-medium mb-1">Username <span class="text-red-500">*</span></label>
         <input type="text" id="username" name="username" 
-               value="{{ old('username', $user_data->getUsername()) }}"
+               value="<?php echo e(old('username', $user_data->getUsername())); ?>"
                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
     </div>
 
     <div>
         <label for="firstname" class="block text-gray-700 font-medium mb-1">Firstname <span class="text-red-500">*</span></label>
         <input type="text" id="firstname" name="firstname" 
-               value="{{ old('firstname', $user_data->getFirstname()) }}"
+               value="<?php echo e(old('firstname', $user_data->getFirstname())); ?>"
                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
     </div>
 
     <div>
         <label for="lastname" class="block text-gray-700 font-medium mb-1">Lastname <span class="text-red-500">*</span></label>
         <input type="text" id="lastname" name="lastname" 
-               value="{{ old('lastname', $user_data->getLastname()) }}"
+               value="<?php echo e(old('lastname', $user_data->getLastname())); ?>"
                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
     </div>
 
     <div>
         <label for="email" class="block text-gray-700 font-medium mb-1">Email <span class="text-red-500">*</span></label>
         <input type="email" id="email" name="email" 
-               value="{{ old('email', $user_data->getEmail()) }}"
+               value="<?php echo e(old('email', $user_data->getEmail())); ?>"
                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
     </div>
 
@@ -67,7 +66,7 @@
     </button>
 </form>
 
-{{-- Change password form --}}
+
 <form method="POST" class="bg-white p-6 mt-6 rounded-xl shadow-md max-w-lg mx-auto space-y-4">
     <h2 class="text-xl font-bold text-gray-800 text-center mb-4 flex items-center justify-center gap-2">
         <i class="fas fa-key text-yellow-600"></i> Change Password
@@ -99,4 +98,5 @@
     </button>
 </form>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /project/workspace/theme/extrax/profile.blade.php ENDPATH**/ ?>

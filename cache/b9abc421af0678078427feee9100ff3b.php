@@ -31,4 +31,4 @@
   <?php echo $__env->yieldPushContent('script'); ?>
 </body>
 </html>
-<?php /**PATH /project/workspace/theme/extrax/layout.blade.php ENDPATH**/ ?>
+<?php /**PATH /project/workspace/theme/extrax////layout.blade.php ENDPATH**/ ?>

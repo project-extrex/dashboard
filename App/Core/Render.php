@@ -81,7 +81,7 @@ class Render
     /**
      * Render admin page (still PHP include)
      */
-    public function admin(string $file, array $data = []): void
+    public function renderAdmin(string $file, array $data = []): void
     {
         $adminPath = __DIR__ . '/../Admin/' . $file . '.php';
 
@@ -91,9 +91,13 @@ class Render
                 ? $this->entityManager->find(User::class, $_SESSION['user_id'])
                 : null;
 
-            include __DIR__ . '/../Admin/components/adminHeader.php';
             extract($data, EXTR_SKIP);
-            include $adminPath;
+            include __DIR__ . '/../Admin/components/adminHeader.php';
+            /*include $adminPath;
+            echo "
+            </body>
+            </html>
+            ";*/
         } else {
             echo 'Admin view not found: ' . htmlspecialchars($file);
         }
