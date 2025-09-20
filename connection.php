@@ -1,5 +1,6 @@
 <?php
 
+use App\Core\Option;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
@@ -17,3 +18,5 @@ $connection = DriverManager::getConnection([
 $entityManager = new EntityManager($connection, $config);
 
 global $entityManager;
+
+Option::init($entityManager);

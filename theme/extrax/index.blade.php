@@ -1,5 +1,7 @@
 @extends('layout')
-
+@php
+use App\Core\Option;
+@endphp
 @section('content')
 <div class="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4 text-center">
     
@@ -13,7 +15,7 @@
 
     <!-- Call-to-Action Button -->
     <button onclick="window.location.href='/dashboard'" 
-            class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
+            class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg text-lg font-semibold hover:bg-blue-700 transition" style="background: {{Option::get_option('color')}};">
         Let's Go
         <span class="text-xl"><i class="fa-solid fa-chevron-right"></i></span>
     </button>

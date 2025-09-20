@@ -53,7 +53,7 @@ class Router
         if (false !== $pos = strpos($uri, '?')) {
             $uri = substr($uri, 0, $pos);
         }
-        $uri = rawurldecode($uri);
+        $uri = rtrim(rawurldecode($uri), "/");
 
         //echo $uri;
 

@@ -42,11 +42,45 @@ $themes = iterator_to_array($loader->loadThemes($themeDir));
   .btn-danger:hover { background:#b91c1c; }
 </style>
 
-<h1>Theme Manager</h1>
+<h1>Theme Manager</h1> <a href="/admin/theme-explorer">Find</a>
+<div>
+  <h2>Upload</h2>
+  <p>Upload a theme from your local computer</p>
+  <form id="uploadForm" action="/admin/theme/upload" method="post" enctype="multipart/form-data">
+  <input type="file" name="zipfile" accept=".zip" required>
+  <button type="submit">Upload & Extract</button>
+</form>
+
+<div id="status"></div>
+
+<script>
+const form = document.getElementById('uploadForm');
+const statusDiv = document.getElementById('status');
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const response = await fetch('/admin/theme/upload', {
+        method: 'POST',
+        body: formData
+    });
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+
+    while(true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        statusDiv.innerHTML += decoder.decode(value);
+    }
+});
+</script>
+</div>
 <?php
 
 if(isset($_GET["error"])) {
-  echo $_GET["error"];
+  echo htmlspecialchars($_GET["error"]);
 };
 
 if(isset($msg)) {

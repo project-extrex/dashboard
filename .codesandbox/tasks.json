@@ -7,7 +7,9 @@
     "Dev Server": {
       "name": "Start development server",
       "command": "php -S 0.0.0.0:8080 public/index.php",
-      "runAtStart": false
+      "preview": {
+        "port": 8080
+      }
     }
   }
 }

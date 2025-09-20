@@ -3,6 +3,7 @@
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
 
+define('internal_function_call', true);
 
 require_once __DIR__ . '/../bootstrap.php';
 

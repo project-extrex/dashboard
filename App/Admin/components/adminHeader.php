@@ -1,120 +1,85 @@
+<?php
+
+use App\Core\AdminSidebar;
+
+AdminSidebar::addMenu([
+    'slug' => 'dashboard', 
+    'title' => 'Dashboard', 
+    'icon' => 'fa-tachometer-alt', 
+    "submenus" => [
+        "dashboard" => [
+            "title" => "Dashboard",
+            "url" => "/admin/",
+        ],
+        "Visit Site" => [
+            "title" => "Visit Site",
+            "url" => "/",
+            "slug" => "home",
+        ],
+        "visit User Dashboard" => [
+            "title" => "User Dashboard",
+            "url" => "/dashboard"
+        ]
+        ],
+    "position" => 0,
+]);
+AdminSidebar::addMenu([
+    'slug' => 'theme', 
+    'title' => 'appearance', 
+    'icon' => 'fa-solid fa-palette', 
+    //'url' => '/admin/theme',
+    "position" => 1,
+    "submenus" => [
+        "theme" => [
+            "title" => "Theme",
+            "url" => "/admin/theme",
+            "slug" => "theme"
+        ],
+        "Theme explorer" => [
+            "title" => "Theme Explorer",
+            "url" => "/admin/theme-explorer",
+            "slug" => "theme-explorer"
+        ]
+    ]
+]);
+AdminSidebar::addMenu([
+    'slug' => 'users', 
+    'title' => 'Users', 
+    'icon' => 'fa-user', 
+    'url' => '/admin/users',
+    "position" => 2,
+]);
+AdminSidebar::addMenu([
+    'slug' => "setting",
+    "title" => "Settings",
+    "icon" => "fas fa-gear",
+    "url" => "/admin/setting",
+    "position" => 3,
+]);
+
+// Set active menu based on current page
+$currentPage = $_GET['page'] ?? rtrim(trim($_SERVER["REQUEST_URI"], "/admin/"), "/") ?? 'dashboard';
+$currentTab = $_GET['tab'] ?? '';
+AdminSidebar::setActive($currentPage, $currentTab);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= $file ?></title>
-  
-  <style>
-    body {
-      color: black;
-    }
-    .admin-header {
-      position: sticky;
-      top: -10px;
-      left: 0;
-      right: 0;
-      z-index: 9999;
-      background: #23282d;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      height: 32px;
-      font-size: 13px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.4);
-      font-family: Arial, sans-serif;
-    }
-  
-    .admin-header .left,
-    .admin-header .right {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-  
-    .admin-header a {
-      color: #fff;
-      text-decoration: none;
-      line-height: 32px;
-    }
-  
-    .admin-header a:hover {
-      color: #00b9eb;
-    }
-  
-    /* Dropdown style */
-    .dropdown {
-      position: relative;
-    }
-  
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 32px;
-      left: 0;
-      background: #32373c;
-      min-width: 160px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    }
-  
-    .dropdown-content a {
-      display: block;
-      padding: 8px 12px;
-      color: #fff;
-      white-space: nowrap;
-    }
-  
-    .dropdown-content a:hover {
-      background: #191e23;
-    }
-  
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extrex Admin  <?= $title ? " - ".$title : "" ?> </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/230524666?s=200&v=4" />
 </head>
 <body>
-<div class="admin-header">
-  <div class="left">
-    <div class="dropdown">
-      <a href="#">Extrax ▾</a>
-      <div class="dropdown-content">
-        <?php
+    <?php echo AdminSidebar::renderSidebar();
 
-        if (isset($adminView)) {
-          ?>
-           <a href="/dashboard ">Visit  Dashboard  </a>
-          <?php
-        }
-
-        ?>
-        <a href="https://github.com/project-extrex">About Extrax</a>
-        <a href="https://project-extrex.github.io/docs">Documentation</a>
-        <a href="/">Support</a>
-      </div>
-      </div>
-    <?php if(!isset($adminView)): ?>
-    <a href="/admin">Dashboard</a>
-    <?php endif; ?>
-    <a href="/admin/theme/">Themes</a>
-    <a href="#">Plugins</a>
-  </div>
-  <div class="right">
-    <div class="dropdown">
-      <a href="#">Howdy, <?= $user->getName() ?> ▾</a>
-      <div class="dropdown-content" style="right:0; left:auto;">
-        <a href="/profile">Profile</a>
-        <a href="/logout">Log Out</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<?php
-include $adminPath;
-?>
-
-    </body>
-    </html>
+    if (isset($adminPath)) {
+        include $adminPath;
+    } else {
+        echo AdminSidebar::renderPage();
+    }
+    ?>
+</body>
+</html>

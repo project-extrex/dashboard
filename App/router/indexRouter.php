@@ -4,4 +4,4 @@
  * Index router *
  ***************/
 
-$router->get('/', fn() => $renderer->view('index', []));
+$router->get('', fn() => $renderer->view('index', []));

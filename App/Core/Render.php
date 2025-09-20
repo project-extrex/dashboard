@@ -58,6 +58,9 @@ class Render
     {
         $data['siteName'] = $this->settingsRepo->getSetting('site_name') ?? 'Extrax';
         $data['theme'] = $this->theme;
+        $data["favicon"] = $this->settingsRepo->getSetting("logo");
+        $data["description"] = $this->settingsRepo->getSetting("description");
+
 
         if (isset($_SESSION['user_id'])) {
             $data['user'] = $this->entityManager->find(User::class, $_SESSION['user_id']);

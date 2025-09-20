@@ -9,14 +9,12 @@
   "editor.formatOnType": true,
   "workbench.colorCustomizations": {
     "editorGroupHeader.tabsBackground": "#121212",
-    "activityBar.background": "#121212",
     "sideBar.background": "#121212",
     "minimap.background": "#191919",
     "tab.activeBackground": "#6666",
     "tab.inactiveBackground": "#1111",
     "terminal.border": "#e80202",
     "terminal.background": "#121212",
-    "statusBar.background": "#1111",
     "scrollbarSlider.background": "#e80202",
     "scrollbarSlider.hoverBackground": "#e80205"
   },

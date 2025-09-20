@@ -2,7 +2,7 @@
 @if(isset($user_data))
 <nav class="bg-gray-900 text-white px-4 py-3 relative" x-data="{ open: false }">
     <!-- Logo -->
-    <a href="/" class="text-xl font-bold">⚡ {{ $siteName ?? 'MyApp' }}</a>
+    <a href="/" class="text-xl font-bold flex align-items-center text-center gap-2"><img src="{{$favicon}}" width="32" height="32" alt="{{$siteName}} logo" class="rounded-sm"> {{ $siteName ?? 'MyApp' }}</a>
 
     <!-- Hamburger (mobile) -->
     <button @click="open = !open" class="sm:hidden text-2xl focus:outline-none absolute right-4 top-3" aria-label="Menu">

@@ -12,7 +12,7 @@ $settingsRepo = $entityManager->getRepository(Settings::class);
 
 $renderer = new Render($settingsRepo, $entityManager);
 
-$router->get('/admin/users/', function () use ($renderer, $entityManager) {
+$router->get('/admin/users', function () use ($renderer, $entityManager) {
     if (!isset($_SESSION['user_id'])) {
         header('Location: /login');
         exit;

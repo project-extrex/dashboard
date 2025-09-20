@@ -19,6 +19,22 @@ $settingsRepo = $entityManager->getRepository(Settings::class);
 
 $renderer = new Render($settingsRepo, $entityManager);
 
+function isAdmin(): bool {
+    global $entityManager;
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: /login');
+        exit;
+    }
+
+    $user = $entityManager->find(User::class, $_SESSION['user_id']);
+    if (!$user || !$user->isAdmin()) {
+        header('Location: /dashboard?error=unauthorized');
+        exit;
+    }
+    return true;
+}
+
+
 
 $router->get('/admin', function () use ($renderer, $entityManager) {
     if (!isset($_SESSION['user_id'])) {
@@ -34,7 +50,7 @@ $router->get('/admin', function () use ($renderer, $entityManager) {
     $renderer->renderAdmin('index', ['user' => $user]);
 });
 
-$router->get('/admin/theme/', function () use ($renderer, $entityManager) {
+$router->get('/admin/theme', function () use ($renderer, $entityManager) {
     if (!isset($_SESSION['user_id'])) {
         header('Location: /login');
         exit;
@@ -48,7 +64,7 @@ $router->get('/admin/theme/', function () use ($renderer, $entityManager) {
     $renderer->renderAdmin('themes', []);
 });
 
-$router->post('/admin/theme/', function () use ($renderer, $entityManager) {
+$router->post('/admin/theme', function () use ($renderer, $entityManager) {
     if (!isset($_SESSION['user_id'])) {
         header('Location: /login');
         exit;
@@ -75,3 +91,6 @@ $router->post('/admin/theme/', function () use ($renderer, $entityManager) {
 
 include "admin/User.php";
 include "admin/Setting.php";
+include "admin/theme-explorer.php";
+include "admin/theme-uploader.php";
+include "admin/menuSidebar.php";
