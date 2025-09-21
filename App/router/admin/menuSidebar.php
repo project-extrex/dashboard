@@ -100,7 +100,7 @@ $router->get("/admin/{slug:.+}/{subslug:.+}", function($vars) use ($renderer) {
 
 
 // Admin main menu pages
-$router->post("/admin/{slug:.+}", function($vars) use ($renderer) {
+$router->post("/admin/{slug}", function($vars) use ($renderer) {
     if (!isAdmin()) {
         exit;
     }
@@ -132,7 +132,7 @@ $router->post("/admin/{slug:.+}", function($vars) use ($renderer) {
 
 
 // Admin submenu pages
-$router->post("/admin/{slug:.+}/{subslug:.+}", function($vars) use ($renderer) {
+$router->post("/admin/{slug}/{subslug:.+}", function($vars) use ($renderer) {
     if (!isAdmin()) {
         exit;
     }

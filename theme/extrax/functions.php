@@ -8,7 +8,7 @@ use App\Core\AdminSidebar;
 use App\Core\Option;
 use App\Icon\Icon;
 
-Icon::downloadSvgIcon('https://www.svgfind.com/download/10878549/chevron%20up.svg', 'chevron_right');
+//Icon::downloadSvgIcon('https://www.svgfind.com/download/10878549/chevron%20up.svg', 'chevron_right');
 
 AdminSidebar::addMenu([
   'title' => 'test',

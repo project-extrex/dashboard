@@ -1,253 +1,127 @@
-<?php
-use App\Icon\Icon;
-?>
+<div class="min-h-screen bg-gray-100 p-6">
+    <h1 class="text-2xl font-bold mb-6 text-gray-800">Users</h1>
 
-<div class="users-container">
-    <h2>Users</h2>
+    <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+        <?php foreach ($users as $user_data): ?>
+            <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex flex-col md:flex-row md:items-center gap-4">
+                    <div class="flex flex-col">
+                        <span class="font-semibold"><?= htmlspecialchars($user_data->getName(), ENT_QUOTES, 'UTF-8') ?></span>
+                        <span class="text-gray-500 text-sm"><?= htmlspecialchars($user_data->getEmail(), ENT_QUOTES, 'UTF-8') ?></span>
+                    </div>
+                    <div class="flex gap-2 text-sm text-gray-600">
+                        <span>Coins: <?= $user_data->getResources()->getCoins() ?></span>
+                        <span>Slots: <?= $user_data->getResources()->getSlots() ?></span>
+                        <span>Admin: <?= $user_data->isAdmin() ? "<i class=\"fa-solid fa-circle-check\"></i>" : '<i class="fa-solid fa-circle-xmark"></i>' ?></span>
+                    </div>
+                </div>
 
-    <div class="users-table-wrapper">
-        <table class="users-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Coins</th>
-                    <th>Slots</th>
-                    <th>Admin</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($users as $user_data): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($user_data->getName(), ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($user_data->getEmail(), ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= $user_data->getResources()->getCoins() ?></td>
-                        <td><?= $user_data->getResources()->getSlots() ?></td>
-                        <td><?= $user_data->isAdmin() ? Icon::use('tick', 32) : Icon::use("x", 32) ?></td>
-                        <td>
-                            <button class="edit-btn"
-                                data-id="<?= $user_data->getId() ?>"
-                                data-name="<?= htmlspecialchars($user_data->getName(), ENT_QUOTES, 'UTF-8') ?>"
-                                data-firstname="<?= htmlspecialchars($user_data->getFirstname(), ENT_QUOTES, 'UTF-8') ?>"
-                                data-lastname="<?= htmlspecialchars($user_data->getLastname(), ENT_QUOTES, 'UTF-8') ?>"
-                                data-email="<?= htmlspecialchars($user_data->getEmail(), ENT_QUOTES, 'UTF-8') ?>"
-                                data-ptrlid="<?= $user_data->getPtrlid() ?>"
-                                data-admin="<?= $user_data->isAdmin() ? '1' : '0' ?>"
-                                data-coins="<?= $user_data->getResources()->getCoins() ?>"
-                                data-slots="<?= $user_data->getResources()->getSlots() ?>"
-                                data-memory="<?= $user_data->getResources()->getMemory() ?>"
-                                data-disk="<?= $user_data->getResources()->getDisk() ?>"
-                                data-cpu="<?= $user_data->getResources()->getCpu() ?>"
-                                data-dbs="<?= $user_data->getResources()->getDbs() ?>"
-                                data-backups="<?= $user_data->getResources()->getBackups() ?>"
-                                data-allocations="<?= $user_data->getResources()->getAllocations() ?>"
-                            >Edit</button>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                <div class="flex gap-2 mt-2 md:mt-0">
+                    <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg edit-btn"
+                        data-id="<?= $user_data->getId() ?>"
+                        data-name="<?= htmlspecialchars($user_data->getName(), ENT_QUOTES, 'UTF-8') ?>"
+                        data-firstname="<?= htmlspecialchars($user_data->getFirstname(), ENT_QUOTES, 'UTF-8') ?>"
+                        data-lastname="<?= htmlspecialchars($user_data->getLastname(), ENT_QUOTES, 'UTF-8') ?>"
+                        data-email="<?= htmlspecialchars($user_data->getEmail(), ENT_QUOTES, 'UTF-8') ?>"
+                        data-ptrlid="<?= $user_data->getPtrlid() ?>"
+                        data-admin="<?= $user_data->isAdmin() ? '1' : '0' ?>"
+                        data-coins="<?= $user_data->getResources()->getCoins() ?>"
+                        data-slots="<?= $user_data->getResources()->getSlots() ?>"
+                        data-memory="<?= $user_data->getResources()->getMemory() ?>"
+                        data-disk="<?= $user_data->getResources()->getDisk() ?>"
+                        data-cpu="<?= $user_data->getResources()->getCpu() ?>"
+                        data-dbs="<?= $user_data->getResources()->getDbs() ?>"
+                        data-backups="<?= $user_data->getResources()->getBackups() ?>"
+                        data-allocations="<?= $user_data->getResources()->getAllocations() ?>"
+                    ><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 </div>
 
-<!-- Popup Edit Form -->
-<div id="editPopup" class="popup-overlay">
-    <div class="popup-content">
-        <h3>Edit User</h3>
-        <form id="editForm" method="post" action="/admin/users/<?= $id ?>">
+<div id="editPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
+        <h3 class="text-xl font-bold mb-4">Edit User</h3>
+        <form id="editForm" method="post" action="/admin/users/" class="space-y-3">
             <input type="hidden" name="user_id" id="editUserId">
 
-            <label>Name:</label>
-            <input type="text" name="name" id="editName" required>
+            <div class="flex flex-col">
+                <label class="font-semibold">Name</label>
+                <input type="text" name="name" id="editName" class="border rounded-lg p-2" required>
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Firstname</label>
+                <input type="text" name="firstname" id="editFirstname" class="border rounded-lg p-2">
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Lastname</label>
+                <input type="text" name="lastname" id="editLastname" class="border rounded-lg p-2">
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Email</label>
+                <input type="email" name="email" id="editEmail" class="border rounded-lg p-2" required>
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Pterodactyl ID</label>
+                <input type="text" name="ptrlid" id="editPtrlid" class="border rounded-lg p-2">
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Admin</label>
+                <select name="admin" id="editAdmin" class="border rounded-lg p-2">
+                    <option value="false"> <i class="fa-solid fa-circle-xmark"></i> No</option>
+                    <option value="true"> <i class="fa-solid fa-circle-check"></i> Yes</option>
+                </select>
+            </div>
 
-            <label>Firstname:</label>
-            <input type="text" name="firstname" id="editFirstname">
+            <h4 class="font-semibold mt-4">Resources</h4>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="flex flex-col">
+                    <label>Coins</label>
+                    <input type="number" name="coins" id="editCoins" class="border rounded-lg p-2">
+                </div>
+                <div class="flex flex-col">
+                    <label>Slots</label>
+                    <input type="number" name="slots" id="editSlots" class="border rounded-lg p-2">
+                </div>
+                <div class="flex flex-col">
+                    <label>Memory</label>
+                    <input type="number" name="memory" id="editMemory" class="border rounded-lg p-2">
+                </div>
+                <div class="flex flex-col">
+                    <label>Disk</label>
+                    <input type="number" name="disk" id="editDisk" class="border rounded-lg p-2">
+                </div>
+                <div class="flex flex-col">
+                    <label>CPU</label>
+                    <input type="number" name="cpu" id="editCpu" class="border rounded-lg p-2">
+                </div>
+                <div class="flex flex-col">
+                    <label>Databases</label>
+                    <input type="number" name="dbs" id="editDbs" class="border rounded-lg p-2">
+                </div>
+                <div class="flex flex-col">
+                    <label>Backups</label>
+                    <input type="number" name="backups" id="editBackups" class="border rounded-lg p-2">
+                </div>
+                <div class="flex flex-col">
+                    <label>Allocations</label>
+                    <input type="number" name="allocations" id="editAllocations" class="border rounded-lg p-2">
+                </div>
+            </div>
 
-            <label>Lastname:</label>
-            <input type="text" name="lastname" id="editLastname">
-
-            <label>Email:</label>
-            <input type="email" name="email" id="editEmail" required>
-
-            <label>Pterodactyl ID:</label>
-            <input type="text" name="ptrlid" id="editPtrlid">
-
-            <label>Admin:</label>
-            <select name="admin" id="editAdmin">
-                <option value="false">No</option>
-                <option value="true">Yes</option>
-            </select>
-
-            <h4>Resources</h4>
-
-            <label>Coins:</label>
-            <input type="number" name="coins" id="editCoins">
-
-            <label>Slots:</label>
-            <input type="number" name="slots" id="editSlots">
-
-            <label>Memory:</label>
-            <input type="number" name="memory" id="editMemory">
-
-            <label>Disk:</label>
-            <input type="number" name="disk" id="editDisk">
-
-            <label>CPU:</label>
-            <input type="number" name="cpu" id="editCpu">
-
-            <label>Databases:</label>
-            <input type="number" name="dbs" id="editDbs">
-
-            <label>Backups:</label>
-            <input type="number" name="backups" id="editBackups">
-
-            <label>Allocations:</label>
-            <input type="number" name="allocations" id="editAllocations">
-
-            <div class="form-actions">
-                <button type="submit">Save</button>
-                <button type="button" id="closePopup">Cancel</button>
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" id="closePopup" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-xmark text-red-500"></i> Cancel</button>
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg">
+                      <i class="fa-solid fa-floppy-disk"></i> Save</button>
             </div>
         </form>
     </div>
 </div>
 
-<style>
-/* ====== Users Table ====== */
-.users-container {
-    padding: 20px;
-}
-
-.users-table-wrapper {
-    overflow-x: auto;
-}
-
-.users-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.users-table th, .users-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-.users-table th {
-    background: #f4f4f4;
-    font-weight: bold;
-}
-
-.edit-btn {
-    padding: 6px 12px;
-    background: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-.edit-btn:hover {
-    background: #2980b9;
-}
-
-/* ====== Popup ====== */
-.popup-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-}
-
-.popup-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-.popup-content h3 {
-    margin-bottom: 15px;
-    font-size: 18px;
-}
-
-.popup-content form label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.popup-content form input,
-.popup-content form select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 15px;
-}
-
-.form-actions button {
-    margin-left: 10px;
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-}
-
-.form-actions button[type="submit"] {
-    background: #27ae60;
-    color: #fff;
-}
-.form-actions button[type="submit"]:hover {
-    opacity: 0.85;
-}
-
-.form-actions button[type="button"] {
-    background: #e74c3c;
-    color: #fff;
-}
-.form-actions button[type="button"]:hover {
-    opacity: 0.85;
-}
-
-/* ====== Responsive ====== */
-@media (max-width: 768px) {
-    .users-table th, .users-table td {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    .popup-content {
-        max-width: 95%;
-    }
-}
-</style>
-
 <script>
 document.querySelectorAll('.edit-btn').forEach(btn => {
     btn.addEventListener('click', function () {
-        // Fill form with dataset
         document.getElementById('editUserId').value = this.dataset.id;
         document.getElementById('editName').value = this.dataset.name;
         document.getElementById('editFirstname').value = this.dataset.firstname;
@@ -263,14 +137,14 @@ document.querySelectorAll('.edit-btn').forEach(btn => {
         document.getElementById('editDbs').value = this.dataset.dbs;
         document.getElementById('editBackups').value = this.dataset.backups;
         document.getElementById('editAllocations').value = this.dataset.allocations;
+        document.getElementById("editAdmin").value = this.dataset.admin ? "true" : "false";
 
-        document.getElementById('editPopup').style.display = 'flex';
-
+        document.getElementById('editPopup').classList.remove('hidden');
         document.getElementById("editForm").action = "/admin/users/" + this.dataset.id;
     });
 });
 
 document.getElementById('closePopup').addEventListener('click', function () {
-    document.getElementById('editPopup').style.display = 'none';
+    document.getElementById('editPopup').classList.add('hidden');
 });
 </script>
