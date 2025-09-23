@@ -92,11 +92,32 @@ class AdminSidebar
                     {$menuHtml}
                 </ul>
             </nav>
-            <button id="wp-admin-sidebar-toggle" class="wp-admin-sidebar-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="w-screen shadow rounded-bl rounded-br h-15.5 bg-gray-800 flex">
+                <div>
+                    <i class="fas fa-e text-3xl mx-5 text-blue-500 px-3 py-1 rounded-xl bg-gray-300 relative"></i>
+                </div>
+                <div class="relative flex items-center justify-center">
+                    <a href="/" class="group relative">
+                    <i class="fa fa-home text-white text-2xl align-middle m-1"></i>
+
+                    <!-- Tooltip -->
+                      <span
+              class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap 
+             rounded-lg bg-gray-800 text-white text-sm px-2 py-1 shadow-lg opacity-0 scale-90 
+             group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 
+             transform transition-all duration-200 ease-out pointer-events-none">
+                Visit site
+               <!-- Tooltip Arrow -->
+               <span class="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-800 rotate-45"></span>
+              </span>
+              </a>
+              </div>
+             <button id="wp-admin-sidebar-toggle" class="wp-admin-sidebar-toggle -top-5 text-xl m-1">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
             {$script}
             HTML;
     }
@@ -234,7 +255,7 @@ class AdminSidebar
                 position: fixed;
                 top: 0;
                 left: 0;
-                width: 160px;
+                width: 50vw;
                 height: 100vh;
                 background: #23282d;
                 z-index: 1000;
@@ -350,8 +371,9 @@ class AdminSidebar
             .wp-admin-sidebar-toggle {
                 display: none;
                 position: fixed;
-                top: 15px;
-                left: 15px;
+                top: 0;
+                left: auto;
+                right: 0;
                 width: 40px;
                 height: 40px;
                 background: #23282d;

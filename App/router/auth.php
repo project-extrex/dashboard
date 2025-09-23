@@ -36,6 +36,8 @@ $router->post('/login', function () use ($renderer, $entityManager) {
     $userRepo = $entityManager->getRepository(User::class);
     $user = $userRepo->findOneBy(['email' => $email]);
 
+    //$user->setPassword($passwordInput);
+
     if (!$user) {
         $errorMsg = 'Invalid email or password';
         return wantsJson()
@@ -131,6 +133,7 @@ $router->post('/register', function () use ($entityManager, $renderer, $settings
     $user->setAdmin(false);
     $user->setName($username);
     $user->setPtrlid(1);
+
 
     $entityManager->persist($user);
     $entityManager->flush();

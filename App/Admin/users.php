@@ -1,6 +1,132 @@
 <div class="min-h-screen bg-gray-100 p-6">
-    <h1 class="text-2xl font-bold mb-6 text-gray-800">Users</h1>
+    <div class="flex static mt-4 ml-7 justify-content-center gap-2">
+        <h1 class="text-2xl font-bold mb-6 text-gray-800">Users</h1>
+        <button class="absolute m-2 p-1 px-2 text-white bg-blue-500 rounded shadow align-middle text-end right-0">Add New</button>
+    </div>
 
+    <div id="info-box">
+    <?php if (isset($_GET["msg"])): ?>
+        <div class="flex items-center p-3 mb-4 text-green-700 bg-green-100 rounded-lg shadow" id="msg">
+            <i class="fa fa-check mr-2"></i>
+            <span><?= htmlspecialchars($_GET["msg"]) ?></span>
+        </div>
+    <?php elseif (isset($_GET["error"])): ?>
+        <div class="flex items-center p-3 mb-4 text-red-700 bg-red-100 rounded-lg shadow" id="error">
+            <i class="fa fa-times mr-2"></i>
+            <span><?= htmlspecialchars($_GET["error"]) ?></span>
+        </div>
+    <?php endif; ?>
+</div>
+
+    <div class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 overflow-y-auto" id="createPopup">
+    <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
+        <h3 class="text-xl font-bold mb-4">Create New User</h3>
+        <form id="createForm" method="post" action="/admin/users" class="space-y-3">
+            
+            <!-- Basic Info -->
+            <div class="flex flex-col">
+                <label class="font-semibold">Name</label>
+                <input type="text" name="name" id="createName" class="border rounded-lg p-2" required>
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Firstname</label>
+                <input type="text" name="firstname" id="createFirstname" class="border rounded-lg p-2">
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Lastname</label>
+                <input type="text" name="lastname" id="createLastname" class="border rounded-lg p-2">
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Username</label>
+                <input type="text" name="username" id="createUsername" class="border rounded-lg p-2">
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Email</label>
+                <input type="email" name="email" id="createEmail" class="border rounded-lg p-2" required>
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Pterodactyl ID</label>
+                <input type="text" name="ptrlid" id="createPtrlid" class="border rounded-lg p-2">
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Password</label>
+                <input type="password" name="password" id="createPassword" class="border rounded-lg p-2" required>
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Admin</label>
+                <select name="admin" id="createAdmin" class="border rounded-lg p-2">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                </select>
+            </div>
+
+            <!-- Resources -->
+            <h4 class="font-semibold mt-4">Resources</h4>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="flex flex-col">
+                    <label>Coins</label>
+                    <input type="number" name="coins" id="createCoins" class="border rounded-lg p-2" value="0">
+                </div>
+                <div class="flex flex-col">
+                    <label>Slots</label>
+                    <input type="number" name="slots" id="createSlots" class="border rounded-lg p-2" value="0">
+                </div>
+                <div class="flex flex-col">
+                    <label>Memory</label>
+                    <input type="number" name="memory" id="createMemory" class="border rounded-lg p-2" value="0">
+                </div>
+                <div class="flex flex-col">
+                    <label>Disk</label>
+                    <input type="number" name="disk" id="createDisk" class="border rounded-lg p-2" value="0">
+                </div>
+                <div class="flex flex-col">
+                    <label>CPU</label>
+                    <input type="number" name="cpu" id="createCpu" class="border rounded-lg p-2" value="0">
+                </div>
+                <div class="flex flex-col">
+                    <label>Databases</label>
+                    <input type="number" name="dbs" id="createDbs" class="border rounded-lg p-2" value="0">
+                </div>
+                <div class="flex flex-col">
+                    <label>Backups</label>
+                    <input type="number" name="backups" id="createBackups" class="border rounded-lg p-2" value="0">
+                </div>
+                <div class="flex flex-col">
+                    <label>Allocations</label>
+                    <input type="number" name="allocations" id="createAllocations" class="border rounded-lg p-2" value="0">
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" id="closeCreatePopup" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
+                    Cancel
+                </button>
+                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+                    Create
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+// Show popup when clicking "Add New"
+document.querySelector('.bg-blue-500').addEventListener('click', () => {
+    document.getElementById('createPopup').classList.remove('hidden');
+});
+
+// Close popup
+document.getElementById('closeCreatePopup').addEventListener('click', () => {
+    document.getElementById('createPopup').classList.add('hidden');
+});
+
+// Close by clicking outside form
+document.getElementById('createPopup').addEventListener('click', function(e) {
+    if(e.target === this) this.classList.add('hidden');
+});
+</script>
+    
     <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
         <?php foreach ($users as $user_data): ?>
             <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -12,7 +138,7 @@
                     <div class="flex gap-2 text-sm text-gray-600">
                         <span>Coins: <?= $user_data->getResources()->getCoins() ?></span>
                         <span>Slots: <?= $user_data->getResources()->getSlots() ?></span>
-                        <span>Admin: <?= $user_data->isAdmin() ? "<i class=\"fa-solid fa-circle-check\"></i>" : '<i class="fa-solid fa-circle-xmark"></i>' ?></span>
+                        <span>Admin: <?= $user_data->isAdmin() ? '<i class="fa-solid fa-circle-check"></i>' : '<i class="fa-solid fa-circle-xmark"></i>' ?></span>
                     </div>
                 </div>
 
@@ -34,6 +160,11 @@
                         data-backups="<?= $user_data->getResources()->getBackups() ?>"
                         data-allocations="<?= $user_data->getResources()->getAllocations() ?>"
                     ><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <?php if($me->getId() != $user_data->getId()):?>
+                    <form method="post" action="/admin/users/<?= $user_data->getId() ?>/delete">
+                        <button class="rounded-xl shadow text-white bg-red-600 px-4 py-2"><i class="fas fa-trash"></i> Delete</button>
+                    </form>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -65,6 +196,10 @@
             <div class="flex flex-col">
                 <label class="font-semibold">Pterodactyl ID</label>
                 <input type="text" name="ptrlid" id="editPtrlid" class="border rounded-lg p-2">
+            </div>
+            <div class="flex flex-col">
+                <label class="font-semibold">Password</label>
+                <input type="password" name="password" id="editPassword" class="border rounded-lg p-2" required>
             </div>
             <div class="flex flex-col">
                 <label class="font-semibold">Admin</label>
@@ -147,4 +282,17 @@ document.querySelectorAll('.edit-btn').forEach(btn => {
 document.getElementById('closePopup').addEventListener('click', function () {
     document.getElementById('editPopup').classList.add('hidden');
 });
+
+const infoBox = document.getElementById("info-box");
+
+setTimeout(() => {
+    infoBox.classList.add("hidden")
+}, 5000)
+
+const url = new URL(window.location.href);
+
+url.searchParams.delete("error");
+url.searchParams.delete("msg");
+
+window.history.replaceState({}, document.title, url);
 </script>
