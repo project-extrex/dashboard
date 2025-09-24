@@ -85,7 +85,7 @@ class AdminSidebar
             <nav id="wp-admin-sidebar" class="wp-admin-sidebar">
                 <div class="wp-admin-sidebar-header">
                     <div class="wp-admin-logo">
-                         <i class="fas fa-e" style="color: #00a0d2; font-size: 24px;">xtrex</i>
+                         <i class="fas fa-e" style="color: #00a0d2; font-size: 24px;">xtrex Admin</i>
                     </div>
                 </div>
                 <ul class="wp-admin-menu">

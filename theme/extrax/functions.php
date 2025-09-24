@@ -46,3 +46,10 @@ AdminSidebar::addMenu([
     ]
   ]
 ]);
+
+
+\App\Registry\Menu::add([
+  "url" => "/",
+  "title" => "extrex",
+  "icon" => "fa fa-e"
+]);

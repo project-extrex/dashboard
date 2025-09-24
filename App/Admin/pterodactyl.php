@@ -103,7 +103,7 @@ function eggManager()
   $eggs = listEggs();
   ?>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-<body class="p-6 bg-gray-100">
+<body class=" bg-gray-100">
 
   <h1 class="text-2xl font-bold mb-4">Egg Manager</h1>
 
