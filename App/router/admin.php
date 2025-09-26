@@ -93,5 +93,7 @@ require_once "admin/User.php";
 require_once "admin/Setting.php";
 require_once "admin/theme-explorer.php";
 require_once "admin/theme-uploader.php";
+require_once "admin/product.php";
+
 require_once "admin/menuSidebar.php";
 require_once __DIR__ . "/../Admin/pterodactyl.php";

@@ -27,6 +27,13 @@ class Menu {
             "icon" => "fas fa-user",
             "position" => 3
         ];
+        self::$menu["/shop"] = [
+            "url" => "/shop",
+            "title" => "Shop",
+            "admin" => false,
+            "icon" => "fas fa-shop",
+            "position" => 4
+        ];
         self::$menu["/admin"] = [
             "url" => "/admin",
             "title" => "Admin",
@@ -47,6 +54,9 @@ class Menu {
         if (!isset($menu['position'])) {
             // Default to very last if no position given
             $menu['position'] = count(self::$menu) + 1;
+        }
+        if(!isset($menu["admin"])) {
+            $menu["admin"] = false;
         }
         self::$menu[$menu['url']] = $menu;
     }

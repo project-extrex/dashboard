@@ -53,3 +53,9 @@ AdminSidebar::addMenu([
   "title" => "extrex",
   "icon" => "fa fa-e"
 ]);
+/*
+* Custom Router 
+*
+\App\Registry\Router::addRoute("get", "/extrex", function() use ($renderer){
+  $renderer->view("index");
+});*/

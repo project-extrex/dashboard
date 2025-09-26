@@ -27,3 +27,5 @@ $router->get('/dashboard', function () use ($renderer, $entityManager) {
 });
 
 require_once __DIR__ . "/user/profile.php";
+require_once "user/shop.php";
+require_once "payment/checkout.php";

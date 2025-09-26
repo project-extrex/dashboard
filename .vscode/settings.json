@@ -1,4 +1,4 @@
-  {
+{
   "editor.fontSize": 15,
   "editor.tabSize": 2,
   "editor.wordWrap": "off",
@@ -27,7 +27,7 @@
   "editor.guides.bracketPairsHorizontal": true,
   "editor.hover.enabled": false,
   "window.zoomLevel": 1,
-  // Live Server 
+  // Live Server
   "liveServer.settings.CustomBrowser": "chrome:PrivateMode",
   "liveServer.settings.donotShowInfoMsg": true,
   "liveServer.settings.donotVerifyTags": true,
@@ -50,17 +50,17 @@
   "security.workspace.trust.untrustedFiles": "open",
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 0,
-  
+
   // Prettier Config
   "prettier.proseWrap": "always",
   "prettier.singleQuote": true,
   "prettier.arrowParens": "avoid",
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "[html]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
   },
   "[php]": {
-    "editor.defaultFormatter": "lkrms.pretty-php",
+    "editor.defaultFormatter": "lkrms.pretty-php"
   },
   // Screencast Mode
   "screencastMode.onlyKeyboardShortcuts": true,
@@ -68,8 +68,8 @@
   "screencastMode.verticalOffset": 0,
 
   // Enable Emmet support for JSX
-   "emmet.includeLanguages": {
-      "javascript": "javascriptreact"
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
   },
   "files.associations": {
     "php": "php"

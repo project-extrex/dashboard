@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea0859c8b435c6fca34f83e844a1c105",
+    "content-hash": "5631e1d1c2affa6d357e6ca1fc16e13d",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1772,6 +1772,181 @@
             "time": "2025-09-03T16:29:42+00:00"
         },
         {
+            "name": "myclabs/deep-copy",
+            "version": "1.13.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/myclabs/DeepCopy.git",
+                "reference": "07d290f0c47959fd5eed98c95ee5602db07e0b6a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/07d290f0c47959fd5eed98c95ee5602db07e0b6a",
+                "reference": "07d290f0c47959fd5eed98c95ee5602db07e0b6a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "conflict": {
+                "doctrine/collections": "<1.6.8",
+                "doctrine/common": "<2.13.3 || >=3 <3.2.2"
+            },
+            "require-dev": {
+                "doctrine/collections": "^1.6.8",
+                "doctrine/common": "^2.13.3 || ^3.2.2",
+                "phpspec/prophecy": "^1.10",
+                "phpunit/phpunit": "^7.5.20 || ^8.5.23 || ^9.5.13"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/DeepCopy/deep_copy.php"
+                ],
+                "psr-4": {
+                    "DeepCopy\\": "src/DeepCopy/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Create deep copies (clones) of your objects",
+            "keywords": [
+                "clone",
+                "copy",
+                "duplicate",
+                "object",
+                "object graph"
+            ],
+            "support": {
+                "issues": "https://github.com/myclabs/DeepCopy/issues",
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.13.4"
+            },
+            "funding": [
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/myclabs/deep-copy",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-08-01T08:46:24+00:00"
+        },
+        {
+            "name": "nahid/apiz",
+            "version": "v4.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nahid/apiz.git",
+                "reference": "da8f1df0018c83cecb3cde5d6550929f0cf72977"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nahid/apiz/zipball/da8f1df0018c83cecb3cde5d6550929f0cf72977",
+                "reference": "da8f1df0018c83cecb3cde5d6550929f0cf72977",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.0 | ^7.0",
+                "lib-libxml": ">=2.6.20",
+                "nahid/qarray": "^2.0",
+                "php": ">=5.6.0 | >=7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9",
+                "symfony/var-dumper": "^5.1"
+            },
+            "suggest": {
+                "ext-curl": "*",
+                "ext-libxml": "*",
+                "ext-simplexml": "*",
+                "ext-yaml": "*"
+            },
+            "type": "php",
+            "autoload": {
+                "files": [],
+                "psr-4": {
+                    "Apiz\\": "src/",
+                    "Tests\\": "Tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nahid Bin Azhar",
+                    "email": "nahid.dns@gmail.com"
+                },
+                {
+                    "name": "Ahmed shamim",
+                    "email": "shaon.cse81@gmail.com"
+                }
+            ],
+            "description": "Apiz is a boilerplate for REST API HTTP call manager",
+            "support": {
+                "issues": "https://github.com/nahid/apiz/issues",
+                "source": "https://github.com/nahid/apiz/tree/v4.0.3"
+            },
+            "time": "2021-03-05T06:22:56+00:00"
+        },
+        {
+            "name": "nahid/qarray",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nahid/qarray.git",
+                "reference": "1250fdeb5863974fcfcf9dbde2844521423080c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nahid/qarray/zipball/1250fdeb5863974fcfcf9dbde2844521423080c4",
+                "reference": "1250fdeb5863974fcfcf9dbde2844521423080c4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "myclabs/deep-copy": "^1.8",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0 || ^6.0",
+                "symfony/var-dumper": "^3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "helpers/qarray.php"
+                ],
+                "psr-4": {
+                    "Nahid\\QArray\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nahid Bin Azhar",
+                    "email": "nahid.dns@gmail.com"
+                }
+            ],
+            "description": "QArray is a PHP abstraction for querying array",
+            "homepage": "https://github.com/nahid/qarray",
+            "keywords": [
+                "array",
+                "php",
+                "query"
+            ],
+            "support": {
+                "issues": "https://github.com/nahid/qarray/issues",
+                "source": "https://github.com/nahid/qarray/tree/v2.1.0"
+            },
+            "time": "2024-12-18T12:24:05+00:00"
+        },
+        {
             "name": "nesbot/carbon",
             "version": "3.10.3",
             "source": {
@@ -2380,6 +2555,134 @@
                 "source": "https://github.com/ralouphie/getallheaders/tree/develop"
             },
             "time": "2019-03-08T08:55:37+00:00"
+        },
+        {
+            "name": "shipu/bkash",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Shipu/bkash.git",
+                "reference": "f534abfc8d2762e6294e77b09817f331e1df8e46"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Shipu/bkash/zipball/f534abfc8d2762e6294e77b09817f331e1df8e46",
+                "reference": "f534abfc8d2762e6294e77b09817f331e1df8e46",
+                "shasum": ""
+            },
+            "require": {
+                "nahid/apiz": "4.*",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Payment": "Shipu\\Bkash\\Facades\\Payment",
+                        "Checkout": "Shipu\\Bkash\\Facades\\Checkout",
+                        "Tokenized": "Shipu\\Bkash\\Facades\\Tokenized"
+                    },
+                    "providers": [
+                        "Shipu\\Bkash\\BkashServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Shipu\\Bkash\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shipu Ahamed",
+                    "email": "shipuahamed01@gmail.com"
+                },
+                {
+                    "name": "Aminul Islam",
+                    "email": "me@aminul.net"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/Shipu/bkash/issues",
+                "source": "https://github.com/Shipu/bkash/tree/v2.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://beerpay.io/Shipu/bkash",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://liberapay.com/shipu",
+                    "type": "liberapay"
+                }
+            ],
+            "time": "2021-04-05T15:41:09+00:00"
+        },
+        {
+            "name": "stripe/stripe-php",
+            "version": "v17.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "a6219df5df1324a0d3f1da25fb5e4b8a3307ea16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/a6219df5df1324a0d3f1da25fb5e4b8a3307ea16",
+                "reference": "a6219df5df1324a0d3f1da25fb5e4b8a3307ea16",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "3.72.0",
+                "phpstan/phpstan": "^1.2",
+                "phpunit/phpunit": "^5.7 || ^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stripe\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stripe and contributors",
+                    "homepage": "https://github.com/stripe/stripe-php/contributors"
+                }
+            ],
+            "description": "Stripe PHP Library",
+            "homepage": "https://stripe.com/",
+            "keywords": [
+                "api",
+                "payment processing",
+                "stripe"
+            ],
+            "support": {
+                "issues": "https://github.com/stripe/stripe-php/issues",
+                "source": "https://github.com/stripe/stripe-php/tree/v17.6.0"
+            },
+            "time": "2025-08-27T19:32:42+00:00"
         },
         {
             "name": "symfony/cache",

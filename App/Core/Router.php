@@ -29,7 +29,7 @@ class Router
         $this->addRoute('DELETE', $path, $handler, $middleware);
     }
 
-    private function addRoute(string $method, string $path, callable $handler, array $middleware = [])
+    public function addRoute(string $method, string $path, callable $handler, array $middleware = [])
     {
         $this->routes[] = compact('method', 'path', 'handler', 'middleware');
     }

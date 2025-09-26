@@ -6,6 +6,7 @@ use App\Core\Router;
 use App\Database\Entities\Settings;
 use App\Database\Entities\User;
 use App\Database\Entities\Resources;
+use App\Registry\Router as RegistryRouter;
 
 session_start();
 global $entityManager;
@@ -35,6 +36,8 @@ require_once __DIR__ . "/front.php";
 require_once __DIR__ . "/admin.php";
 require_once __DIR__ . '/staticServer.php';
 require_once __DIR__ . "/../../theme/{$settingsRepo->getSetting('theme')}/functions.php";
+
+RegistryRouter::initial($router);
 
 // --- Dispatch ---
 if (php_sapi_name() !== 'cli') {

@@ -22,7 +22,8 @@ $router->get('/login', function () use ($renderer) {
         header('Location: /dashboard');
         exit;
     }
-    $renderer->view('login', ['login_path' => '/login']);
+    $redirect = $_GET["redirect"] ?? "/dashboard";
+    $renderer->view('login', ['login_path' => '/login', "redirect" => $redirect]);
 });
 
 $router->post('/login', function () use ($renderer, $entityManager) {
@@ -35,6 +36,7 @@ $router->post('/login', function () use ($renderer, $entityManager) {
 
     $userRepo = $entityManager->getRepository(User::class);
     $user = $userRepo->findOneBy(['email' => $email]);
+    $redirect = $_POST["redirect"];
 
     //$user->setPassword($passwordInput);
 
@@ -53,7 +55,7 @@ $router->post('/login', function () use ($renderer, $entityManager) {
 
         return wantsJson()
             ? jsonResponse(['success' => true, 'redirect' => '/dashboard'])
-            : header('Location: /dashboard');
+            : header('Location: '. $redirect);
     } else {
         $errorMsg = 'Invalid email or password';
         return wantsJson()

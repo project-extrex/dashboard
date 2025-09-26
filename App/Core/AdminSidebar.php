@@ -93,9 +93,9 @@ class AdminSidebar
                 </ul>
             </nav>
             <div class="w-screen shadow rounded-bl rounded-br h-15.5 bg-gray-800 flex">
-                <div>
+               <!-- <div>
                     <i class="fas fa-e text-3xl mx-5 text-blue-500 px-3 py-1 rounded-xl bg-gray-300 relative"></i>
-                </div>
+                </div> -->
                 <div class="relative flex items-center justify-center">
                     <a href="/" class="group relative">
                     <i class="fa fa-home text-white text-2xl align-middle m-1"></i>
